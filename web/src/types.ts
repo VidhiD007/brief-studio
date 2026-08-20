@@ -10,6 +10,8 @@ export interface RoomDim {
 }
 
 export interface Calibration {
+  isFloorPlan: boolean;
+  floorPlanIssue: string;
   roomCount: string;
   lightDirection: string;
   elements: string;
@@ -66,12 +68,12 @@ export interface WizardState {
   renovationScope: string;
   wetWalls: string;
   immovableWalls: string;
+  checkingFloorPlan: boolean;
+  floorPlanError: string;
 
   // Step 1.5
   calibration: Calibration | null;
   calibrationEdits: Partial<Calibration>;
-  calibrating: boolean;
-  calibrationError: string;
 
   // Step 2
   occupantType: string;
@@ -141,10 +143,10 @@ export const initialState: WizardState = {
   renovationScope: "",
   wetWalls: "",
   immovableWalls: "",
+  checkingFloorPlan: false,
+  floorPlanError: "",
   calibration: null,
   calibrationEdits: {},
-  calibrating: false,
-  calibrationError: "",
   occupantType: "",
   numPeople: "",
   staffCount: "",

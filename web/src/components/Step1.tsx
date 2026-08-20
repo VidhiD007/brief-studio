@@ -50,6 +50,11 @@ export function Step1({ wizard }: { wizard: Wizard }) {
           onRemove={() => patch({ floorPlan: null })}
           label="Drop your floor plan here or click to upload"
         />
+        {state.floorPlanError ? (
+          <div style={{ fontSize: 12, color: "#e5484d", marginTop: 8, padding: "9px 12px", background: "rgba(229,72,77,0.08)", borderRadius: 8, border: "1px solid rgba(229,72,77,0.25)" }}>
+            {state.floorPlanError}
+          </div>
+        ) : null}
         <div className="helper-note" style={{ fontStyle: "italic" }}>
           Mark north direction on your floor plan before uploading — even a written N with an arrow helps the AI significantly.
         </div>

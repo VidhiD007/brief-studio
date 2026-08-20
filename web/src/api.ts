@@ -13,10 +13,15 @@ function toImagePayload(img: UploadedImage): { mediaType: string; dataBase64: st
   return { mediaType: match[1], dataBase64: match[2] };
 }
 
+// The text-summary fields shown/editable on Step 1.5 — excludes isFloorPlan/
+// floorPlanIssue, which are just the upstream validation result, not part of
+// the space reading itself.
+const CALIBRATION_TEXT_FIELDS = ["roomCount", "lightDirection", "elements", "circulation", "unclear"] as const;
+
 function toBriefPayload(s: WizardState) {
   const cal: Record<string, string> = {};
   if (s.calibration) {
-    (Object.keys(s.calibration) as (keyof Calibration)[]).forEach((k) => {
+    CALIBRATION_TEXT_FIELDS.forEach((k) => {
       cal[k] = s.calibrationEdits[k] ?? s.calibration![k];
     });
   }

@@ -84,6 +84,8 @@ export const RefineRequestSchema = z.object({
 });
 
 export const CalibrationSchema = z.object({
+  isFloorPlan: z.boolean(),
+  floorPlanIssue: z.string(),
   roomCount: z.string(),
   lightDirection: z.string(),
   elements: z.string(),

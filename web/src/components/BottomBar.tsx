@@ -13,18 +13,20 @@ export function BottomBar({ wizard }: { wizard: Wizard }) {
   // from a different step never lingers.
   useEffect(() => setError(""), [step]);
 
-  const nextLabel = step === 1.5 ? "Confirm & continue →" : step === 5 ? "Generate my design strategy →" : "Continue →";
+  const nextLabel = state.checkingFloorPlan
+    ? "Checking floor plan..."
+    : step === 1.5
+      ? "Confirm & continue →"
+      : step === 5
+        ? "Generate my design strategy →"
+        : "Continue →";
   const stepDisplay = step === 1.5 ? "1" : String(Math.floor(step));
   const validation = validateStep(state);
-  // Step 1.5 has no form fields to validate, but it does have an async
-  // analysis in flight — can't confirm data that hasn't loaded (or failed
-  // to load) yet.
-  const step15NotReady = step === 1.5 && (state.calibrating || (!state.calibration && !!state.calibrationError));
-  const gated = step15NotReady || (step !== 1.5 && !validation.valid);
+  const gated = state.checkingFloorPlan || (step !== 1.5 && !validation.valid);
 
   const onNextClick = () => {
     if (gated) {
-      setError(step === 1.5 ? "Waiting on the space analysis to finish (or retry it above)." : validation.message);
+      if (!state.checkingFloorPlan) setError(validation.message);
       return;
     }
     setError("");

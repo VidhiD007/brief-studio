@@ -60,30 +60,34 @@ export function useWizard() {
     }, 10);
   };
 
-  // Real Claude vision analysis of the uploaded floor plan (and up to 3 space
-  // photos) plus whatever manual fields were entered. Deliberately does not
-  // fall back to invented text on failure — see calibrationError handling.
-  const runCalibration = async () => {
-    patch({ calibrating: true, calibrationError: "", calibration: null, calibrationEdits: {} });
-    try {
-      const calibration = await calibrateSpace(state);
-      patch({ calibrating: false, calibration });
-    } catch (err) {
-      console.error("Calibration failed:", err);
-      patch({ calibrating: false, calibrationError: "Couldn't analyze your space right now. Check your connection and try again." });
-    }
-  };
-
-  const handleNext = () => {
-    // Steps 1.5 and 5 have nothing new to validate here (1.5 is a confirm-only
-    // step, 5's own "Generate" click is gated by every prior step already
-    // having passed). Defense in depth — the Continue button is also disabled
-    // client-side so this mainly guards against stray Enter-key submits.
+  const handleNext = async () => {
+    // Steps 1.5 and 5 have nothing new to validate here (1.5 just displays
+    // whatever calibration Step 1 already confirmed; 5's own "Generate" click
+    // is gated by every prior step already having passed). Defense in depth —
+    // the Continue button is also disabled client-side, so this mainly guards
+    // against stray Enter-key submits.
     if (state.step !== 1.5 && !validateStep(state).valid) return;
     if (state.step === 1) {
-      patch({ step: 1.5 });
-      scrollTop();
-      runCalibration();
+      // Real Claude vision check, run before ever leaving this page: is the
+      // upload actually a floor plan, and (if so) what does it show? Staying
+      // on Step 1 until this resolves means "Continue" doubles as the retry
+      // action on failure — no separate loading/retry UI needed on Step 1.5.
+      patch({ checkingFloorPlan: true, floorPlanError: "" });
+      try {
+        const calibration = await calibrateSpace(state);
+        if (!calibration.isFloorPlan) {
+          patch({
+            checkingFloorPlan: false,
+            floorPlanError: calibration.floorPlanIssue || "Floor plan not detected — please upload a floor plan image.",
+          });
+          return;
+        }
+        patch({ checkingFloorPlan: false, calibration, calibrationEdits: {}, step: 1.5 });
+        scrollTop();
+      } catch (err) {
+        console.error("Floor plan check failed:", err);
+        patch({ checkingFloorPlan: false, floorPlanError: "Couldn't verify your floor plan right now. Check your connection and try again." });
+      }
     } else if (state.step === 1.5) {
       patch({ step: 2 });
       scrollTop();
@@ -137,7 +141,7 @@ export function useWizard() {
   const handleFPUpload = async (file: File | undefined) => {
     if (!file) return;
     const d = await readFile(file);
-    patch({ floorPlan: d });
+    patch({ floorPlan: d, floorPlanError: "" });
   };
 
   const handlePhotosUpload = async (files: FileList | File[] | undefined) => {
@@ -207,7 +211,6 @@ export function useWizard() {
     handleNext,
     handleBack,
     goToStep,
-    retryCalibration: runCalibration,
     toggleChip,
     toggleStyle,
     addCustomMustHave,
