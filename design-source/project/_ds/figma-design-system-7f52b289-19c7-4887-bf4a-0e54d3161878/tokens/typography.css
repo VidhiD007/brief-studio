@@ -1,0 +1,65 @@
+:root {
+  /* Font families */
+  --font-sans: 'Inter', system-ui, -apple-system, helvetica, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', menlo, monospace;
+  /* Display XL — 86px / 340 / 1.00 / -1.72px */
+  --type-display-xl-size: 86px;
+  --type-display-xl-weight: 340;
+  --type-display-xl-line-height: 1.00;
+  --type-display-xl-letter-spacing: -1.72px;
+  /* Display LG — 64px / 340 / 1.10 / -0.96px */
+  --type-display-lg-size: 64px;
+  --type-display-lg-weight: 340;
+  --type-display-lg-line-height: 1.10;
+  --type-display-lg-letter-spacing: -0.96px;
+  /* Headline — 26px / 540 / 1.35 / -0.26px */
+  --type-headline-size: 26px;
+  --type-headline-weight: 540;
+  --type-headline-line-height: 1.35;
+  --type-headline-letter-spacing: -0.26px;
+  /* Subhead — 26px / 340 / 1.35 / -0.26px */
+  --type-subhead-size: 26px;
+  --type-subhead-weight: 340;
+  --type-subhead-line-height: 1.35;
+  --type-subhead-letter-spacing: -0.26px;
+  /* Card Title — 24px / 700 / 1.45 / 0 */
+  --type-card-title-size: 24px;
+  --type-card-title-weight: 700;
+  --type-card-title-line-height: 1.45;
+  --type-card-title-letter-spacing: 0;
+  /* Body LG — 20px / 330 / 1.40 / -0.14px */
+  --type-body-lg-size: 20px;
+  --type-body-lg-weight: 330;
+  --type-body-lg-line-height: 1.40;
+  --type-body-lg-letter-spacing: -0.14px;
+  /* Body — 18px / 320 / 1.45 / -0.26px */
+  --type-body-size: 18px;
+  --type-body-weight: 320;
+  --type-body-line-height: 1.45;
+  --type-body-letter-spacing: -0.26px;
+  /* Body SM — 16px / 330 / 1.45 / -0.14px */
+  --type-body-sm-size: 16px;
+  --type-body-sm-weight: 330;
+  --type-body-sm-line-height: 1.45;
+  --type-body-sm-letter-spacing: -0.14px;
+  /* Link — 20px / 480 / 1.40 / -0.10px */
+  --type-link-size: 20px;
+  --type-link-weight: 480;
+  --type-link-line-height: 1.40;
+  --type-link-letter-spacing: -0.10px;
+  /* Button — 20px / 480 / 1.40 / -0.10px */
+  --type-button-size: 20px;
+  --type-button-weight: 480;
+  --type-button-line-height: 1.40;
+  --type-button-letter-spacing: -0.10px;
+  /* Eyebrow — figmaMono / 18px / 400 / 1.30 / 0.54px */
+  --type-eyebrow-size: 18px;
+  --type-eyebrow-weight: 400;
+  --type-eyebrow-line-height: 1.30;
+  --type-eyebrow-letter-spacing: 0.54px;
+  /* Caption — figmaMono / 12px / 400 / 1.00 / 0.60px */
+  --type-caption-size: 12px;
+  --type-caption-weight: 400;
+  --type-caption-line-height: 1.00;
+  --type-caption-letter-spacing: 0.60px;
+}

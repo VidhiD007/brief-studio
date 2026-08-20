@@ -1,0 +1,78 @@
+import type { Wizard } from "../useWizard";
+import { reviewSections } from "../derived";
+
+export function Step5({ wizard }: { wizard: Wizard }) {
+  const { state, patch, goToStep } = wizard;
+  const sections = reviewSections(state);
+
+  return (
+    <div className="fade-in" style={{ maxWidth: 820 }}>
+      <div style={{ fontSize: 26, fontWeight: 340, letterSpacing: -0.5, marginBottom: 4 }}>Review &amp; generate</div>
+      <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 32 }}>Confirm your inputs and generate your design strategy document</div>
+      <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div className="field-label" style={{ marginBottom: 12 }}>Your inputs</div>
+          {sections.map((sect) => {
+            const expanded = !!state.expandedSections[sect.key];
+            return (
+              <div key={sect.key} className="review-card">
+                <div
+                  className="review-card-head"
+                  onClick={() => patch((s) => ({ expandedSections: { ...s.expandedSections, [sect.key]: !s.expandedSections[sect.key] } }))}
+                >
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: 540, color: "#f0ece4" }}>{sect.label}</div>
+                    <div style={{ fontSize: 11, color: "#4a4a52", marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {sect.summary}
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0, marginLeft: 12 }}>
+                    <div
+                      className="text-link"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        goToStep(sect.stepNum);
+                      }}
+                    >
+                      Edit
+                    </div>
+                    <div className={`review-arrow${expanded ? " open" : ""}`}>▾</div>
+                  </div>
+                </div>
+                {expanded ? (
+                  <div style={{ padding: "0 14px 12px", borderTop: "1px solid #3a3a42" }}>
+                    {sect.items.map((item) => (
+                      <div key={item.k} style={{ display: "flex", justifyContent: "space-between", gap: 8, padding: "6px 0", borderBottom: "1px solid #25252a" }}>
+                        <div style={{ fontSize: 11, color: "#4a4a52", flexShrink: 0 }}>{item.k}</div>
+                        <div style={{ fontSize: 11, color: "#8a8a8a", textAlign: "right", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {item.v}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ width: 300, flexShrink: 0 }}>
+          <div style={{ background: "#28282e", border: "1px solid #3a3a42", borderRadius: 10, padding: 20 }}>
+            <div className="field-label" style={{ marginBottom: 14 }}>What you will receive</div>
+            <div style={{ fontSize: 13, color: "#a0a0a0", lineHeight: 1.7 }}>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Space analysis — confirmed against your corrections</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Design parameters — structured summary of all requirements</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Three spatial approaches — text descriptions with reasoning, not floor plan drawings</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Visual direction brief — palette, materials, lighting recommendations</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Action sheet — prioritized checklist for your CAD session</div>
+            </div>
+            <div style={{ borderTop: "1px solid #3a3a42", marginTop: 4, paddingTop: 12 }}>
+              <div style={{ fontSize: 11, color: "#4a4a52", lineHeight: 1.5, fontStyle: "italic" }}>
+                Spatial approaches are strategy descriptions, not visual floor plans. The visual brief is a reference for building your mood board, not a finished collage.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

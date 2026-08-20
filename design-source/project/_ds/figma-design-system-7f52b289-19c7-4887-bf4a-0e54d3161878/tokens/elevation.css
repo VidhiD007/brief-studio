@@ -1,0 +1,6 @@
+:root {
+  --shadow-none: none;
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --scrim-opacity: 0.6; /* @kind other */
+}
