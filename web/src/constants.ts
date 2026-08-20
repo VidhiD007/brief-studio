@@ -98,7 +98,7 @@ export const VASTU_ROOM_CHIPS = ["Kitchen", "Master bedroom", "Prayer room", "Ba
 
 export const VASTU_TOGGLES: { key: "vastuBasement" | "vastuBorewell" | "vastuTank"; label: string }[] = [
   { key: "vastuBasement", label: "Basement or underground space?" },
-  { key: "vastuBorewell", label: "Borewell or overhead tank?" },
+  { key: "vastuBorewell", label: "Private well or overhead water tank?" },
   { key: "vastuTank", label: "Well on property?" },
 ];
 

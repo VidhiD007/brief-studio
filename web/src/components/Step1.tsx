@@ -19,7 +19,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
             type="text"
             value={state.projectName}
             onChange={(e) => patch({ projectName: e.target.value })}
-            placeholder="e.g. Sharma residence"
+            placeholder="e.g. The Bennett residence"
             style={{ width: "100%" }}
           />
         </div>

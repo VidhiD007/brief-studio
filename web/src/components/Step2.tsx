@@ -61,7 +61,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
         <textarea
           value={state.whatStays}
           onChange={(e) => patch({ whatStays: e.target.value })}
-          placeholder="e.g. White L-shaped sofa, approx 3m wide. Dining table for 8. Built-in wardrobe in bedroom 1."
+          placeholder="e.g. White L-shaped sofa, approx 10 ft wide. Dining table that seats 8. Built-in closet in bedroom 1."
           rows={3}
           style={{ width: "100%", minHeight: 76 }}
         />

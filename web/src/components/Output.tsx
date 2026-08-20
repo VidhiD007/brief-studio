@@ -6,7 +6,7 @@ export function Output({ wizard }: { wizard: Wizard }) {
   const o = state.output;
   if (!o) return null;
 
-  const meta = `${state.spaceType || "Space"} · ${new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}`;
+  const meta = `${state.spaceType || "Space"} · ${new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}`;
 
   return (
     <div className="output-page" style={{ display: "flex", flexDirection: "column", background: "#1e1e24", fontFamily: "var(--font-sans)" }}>
