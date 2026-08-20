@@ -9,19 +9,19 @@ export function Output({ wizard }: { wizard: Wizard }) {
   const meta = `${state.spaceType || "Space"} · ${new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}`;
 
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#1e1e24", fontFamily: "var(--font-sans)" }}>
-      <div style={{ height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderBottom: "1px solid #2a2a32", flexShrink: 0 }}>
+    <div className="output-page" style={{ display: "flex", flexDirection: "column", background: "#1e1e24", fontFamily: "var(--font-sans)" }}>
+      <div className="no-print" style={{ height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderBottom: "1px solid #2a2a32", flexShrink: 0 }}>
         <div className="top-bar-btn" style={{ border: "none", padding: 0, display: "flex", alignItems: "center", gap: 6, fontSize: 13 }} onClick={backToEditor}>
           ← Back to editor
         </div>
         <div style={{ fontSize: 16, fontWeight: 600, color: "#f0ece4" }}>Design Strategy Document</div>
         <div style={{ display: "flex", gap: 10 }}>
-          <div className="back-btn" style={{ padding: "6px 14px", fontSize: 12 }}>Download as PDF</div>
+          <div className="back-btn" style={{ padding: "6px 14px", fontSize: 12 }} onClick={() => window.print()}>Download as PDF</div>
           <div className="back-btn" style={{ padding: "6px 14px", fontSize: 12 }} onClick={startNewProject}>New project</div>
         </div>
       </div>
 
-      <div ref={outputRef} style={{ flex: 1, overflowY: "auto", padding: "36px 44px" }}>
+      <div ref={outputRef} className="output-scroll" style={{ flex: 1, padding: "36px 44px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <div style={{ marginBottom: 40, paddingBottom: 24, borderBottom: "1px solid #2a2a32" }}>
             <div style={{ fontSize: 28, fontWeight: 340, letterSpacing: -0.5, marginBottom: 6 }}>{state.projectName || "Untitled project"}</div>
