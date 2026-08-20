@@ -14,7 +14,7 @@ export function Step3({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 28 }}>Optional — select "Neither" to skip this step</div>
 
       <div style={{ marginBottom: 24 }}>
-        <FieldLabel>This project will follow</FieldLabel>
+        <FieldLabel required>This project will follow</FieldLabel>
         <RadioGroup options={VASTU_CHOICE_OPTIONS} value={state.vastuChoice} onSelect={(v) => patch({ vastuChoice: v })} />
       </div>
 

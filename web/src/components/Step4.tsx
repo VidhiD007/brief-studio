@@ -1,6 +1,6 @@
 import type { Wizard } from "../useWizard";
 import { COLOR_MOODS, LIGHTING_PREFS, STYLE_CHIPS } from "../constants";
-import { FieldLabel, ImageGridUpload } from "./common";
+import { FieldLabel, ImageGridUpload, RequiredMark } from "./common";
 import { MAX_REF_IMAGES } from "../types";
 
 export function Step4({ wizard }: { wizard: Wizard }) {
@@ -12,7 +12,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 36 }}>Define the client's visual taste and style preferences</div>
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel>Style direction (pick up to 3)</FieldLabel>
+        <FieldLabel required>Style direction (pick up to 3)</FieldLabel>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {STYLE_CHIPS.map((chip) => (
             <div
@@ -29,7 +29,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div style={{ marginBottom: 22 }}>
-        <div className="field-label" style={{ marginBottom: 12 }}>Colour mood</div>
+        <div className="field-label" style={{ marginBottom: 12 }}>Colour mood<RequiredMark /></div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10 }}>
           {COLOR_MOODS.map((mood) => (
             <div
@@ -51,7 +51,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div style={{ marginBottom: 22 }}>
-        <div className="field-label" style={{ marginBottom: 12 }}>Lighting preference</div>
+        <div className="field-label" style={{ marginBottom: 12 }}>Lighting preference<RequiredMark /></div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
           {LIGHTING_PREFS.map((lp) => (
             <div

@@ -2,8 +2,17 @@ import type { ChangeEvent, DragEvent, ReactNode } from "react";
 import { useRef } from "react";
 import type { UploadedImage } from "../types";
 
-export function FieldLabel({ children }: { children: ReactNode }) {
-  return <div className="field-label">{children}</div>;
+export function RequiredMark() {
+  return <span style={{ color: "#e5484d", marginLeft: 4 }}>*</span>;
+}
+
+export function FieldLabel({ children, required }: { children: ReactNode; required?: boolean }) {
+  return (
+    <div className="field-label">
+      {children}
+      {required ? <RequiredMark /> : null}
+    </div>
+  );
 }
 
 export function ChipGroup({

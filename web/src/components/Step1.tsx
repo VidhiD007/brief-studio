@@ -1,6 +1,6 @@
 import type { Wizard } from "../useWizard";
 import { PHASE_OPTIONS, RENOVATION_OPTIONS, SPACE_TYPES, DIRECTIONS } from "../constants";
-import { FieldLabel, RadioGroup, SingleImageUpload, ImageGridUpload } from "./common";
+import { FieldLabel, RadioGroup, RequiredMark, SingleImageUpload, ImageGridUpload } from "./common";
 import { MAX_PHOTOS } from "../types";
 
 export function Step1({ wizard }: { wizard: Wizard }) {
@@ -14,7 +14,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 15, fontWeight: 540, marginBottom: 18, color: "#f0ece4" }}>Project basics</div>
       <div style={{ display: "flex", gap: 14, marginBottom: 18 }}>
         <div style={{ flex: 1 }}>
-          <FieldLabel>Project name</FieldLabel>
+          <FieldLabel required>Project name</FieldLabel>
           <input
             type="text"
             value={state.projectName}
@@ -24,7 +24,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
           />
         </div>
         <div style={{ flex: 1 }}>
-          <FieldLabel>Space type</FieldLabel>
+          <FieldLabel required>Space type</FieldLabel>
           <select value={state.spaceType} onChange={(e) => patch({ spaceType: e.target.value })} style={{ width: "100%", cursor: "pointer" }}>
             <option value="">Select type</option>
             {SPACE_TYPES.map((t) => (
@@ -35,14 +35,14 @@ export function Step1({ wizard }: { wizard: Wizard }) {
       </div>
 
       <div style={{ marginBottom: 28 }}>
-        <FieldLabel>Project phase</FieldLabel>
+        <FieldLabel required>Project phase</FieldLabel>
         <RadioGroup options={PHASE_OPTIONS} value={state.projectPhase} onSelect={(v) => patch({ projectPhase: v })} />
       </div>
 
       <div className="hairline" />
 
       <div style={{ marginBottom: 28 }}>
-        <div className="section-title">Floor plan</div>
+        <div className="section-title">Floor plan<RequiredMark /></div>
         <div className="section-sub">Required — upload your floor plan image</div>
         <SingleImageUpload
           image={state.floorPlan}

@@ -21,23 +21,23 @@ export function Step2({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 36 }}>Who will use this space and what do they need</div>
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel>Who is this space for</FieldLabel>
+        <FieldLabel required>Who is this space for</FieldLabel>
         <ChipGroup options={OCCUPANT_OPTIONS} selected={state.occupantType ? [state.occupantType] : []} onToggle={(v) => patch({ occupantType: v })} />
       </div>
 
       {isRes ? (
         <div style={{ marginBottom: 22 }}>
-          <FieldLabel>Number of people</FieldLabel>
+          <FieldLabel required>Number of people</FieldLabel>
           <input type="number" value={state.numPeople} onChange={(e) => patch({ numPeople: e.target.value })} placeholder="e.g. 4" style={{ width: 110 }} />
         </div>
       ) : (
         <div style={{ display: "flex", gap: 14, marginBottom: 22 }}>
           <div style={{ flex: 1 }}>
-            <FieldLabel>Staff count</FieldLabel>
+            <FieldLabel required>Staff count</FieldLabel>
             <input type="number" value={state.staffCount} onChange={(e) => patch({ staffCount: e.target.value })} placeholder="e.g. 12" style={{ width: "100%" }} />
           </div>
           <div style={{ flex: 1 }}>
-            <FieldLabel>{capacityLabelFor(state.spaceType)}</FieldLabel>
+            <FieldLabel required>{capacityLabelFor(state.spaceType)}</FieldLabel>
             <input
               type="number"
               value={state.seatCapacity}
@@ -107,7 +107,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel>Pain points</FieldLabel>
+        <FieldLabel required>Pain points</FieldLabel>
         <div style={{ fontSize: 12, color: "#5a5a5a", marginBottom: 7 }}>What is not working? What did the client say bothers them?</div>
         <textarea
           value={state.painPoints}
@@ -166,7 +166,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
       </div>
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel>Timeline</FieldLabel>
+        <FieldLabel required>Timeline</FieldLabel>
         <RadioGroup options={TIMELINE_OPTIONS} value={state.timeline} onSelect={(v) => patch({ timeline: v })} direction="column" />
       </div>
     </div>
