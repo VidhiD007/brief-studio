@@ -82,3 +82,41 @@ export const RefineRequestSchema = z.object({
   previousOutput: OutputSchema,
   refinement: z.string().min(1),
 });
+
+export const CalibrationSchema = z.object({
+  roomCount: z.string(),
+  lightDirection: z.string(),
+  elements: z.string(),
+  circulation: z.string(),
+  unclear: z.string(),
+});
+
+export type Calibration = z.infer<typeof CalibrationSchema>;
+
+const ImagePayloadSchema = z.object({
+  mediaType: z.enum(["image/png", "image/jpeg", "image/webp", "image/gif"]),
+  dataBase64: z.string().min(1),
+});
+
+// The floor plan upload also accepts PDF (see Step1's accept="image/*,.pdf"),
+// which Claude reads as a document, not an image.
+const FloorPlanPayloadSchema = z.object({
+  mediaType: z.enum(["image/png", "image/jpeg", "image/webp", "image/gif", "application/pdf"]),
+  dataBase64: z.string().min(1),
+});
+
+export const CalibrateRequestSchema = z.object({
+  floorPlanImage: FloorPlanPayloadSchema.nullable(),
+  spacePhotos: z.array(ImagePayloadSchema).max(3),
+  rooms: z.array(z.object({ name: z.string(), l: z.string(), w: z.string() })),
+  totalArea: z.string(),
+  areaUnit: z.string(),
+  ceilingHeight: z.string(),
+  numLevels: z.string(),
+  northDirection: z.string(),
+  renovationScope: z.string(),
+  wetWalls: z.string(),
+  immovableWalls: z.string(),
+});
+
+export type CalibrateRequest = z.infer<typeof CalibrateRequestSchema>;

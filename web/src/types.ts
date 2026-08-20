@@ -70,6 +70,8 @@ export interface WizardState {
   // Step 1.5
   calibration: Calibration | null;
   calibrationEdits: Partial<Calibration>;
+  calibrating: boolean;
+  calibrationError: string;
 
   // Step 2
   occupantType: string;
@@ -141,6 +143,8 @@ export const initialState: WizardState = {
   immovableWalls: "",
   calibration: null,
   calibrationEdits: {},
+  calibrating: false,
+  calibrationError: "",
   occupantType: "",
   numPeople: "",
   staffCount: "",

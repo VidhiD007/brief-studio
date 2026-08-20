@@ -1,4 +1,4 @@
-import type { Brief } from "./schema.js";
+import type { Brief, CalibrateRequest } from "./schema.js";
 
 const isResidential = (spaceType: string) =>
   !spaceType || spaceType === "Residential" || spaceType === "Studio";
@@ -104,3 +104,39 @@ Rules:
 - Vastu/Feng Shui outputs apply common principles only; note this is not a certified consultation`;
 
 export const REFINE_SYSTEM_PROMPT = `You are a senior interior designer refining a design strategy document. The designer has reviewed the initial output and wants changes. Follow the same output schema as the original. Incorporate the refinement feedback while keeping the parts that weren't criticized.`;
+
+export function buildCalibrationPrompt(req: Omit<CalibrateRequest, "floorPlanImage" | "spacePhotos">, hasFloorPlan: boolean, photoCount: number): string {
+  const roomLines = req.rooms
+    .filter((r) => r.name.trim())
+    .map((r) => `${r.name.trim()}${r.l || r.w ? ` (approx ${r.l || "?"} x ${r.w || "?"} ft)` : ""}`);
+
+  const lines = [
+    hasFloorPlan
+      ? "A floor plan image is attached — read it carefully."
+      : "No floor plan was uploaded. Base your reading entirely on the manual fields below and say so explicitly.",
+    photoCount > 0 ? `${photoCount} space photo(s) are also attached — use them for light, ceiling height, and fixture details.` : "",
+    "",
+    "--- MANUAL FIELDS THE DESIGNER ENTERED ---",
+    `Rooms named by designer: ${roomLines.length ? roomLines.join("; ") : "None entered"}`,
+    `Total area: ${req.totalArea || "Not specified"} ${req.areaUnit === "sqft" ? "sq ft" : "sq m"}`,
+    `Ceiling height: ${req.ceilingHeight ? req.ceilingHeight + " ft" : "Not specified"}`,
+    `Levels: ${req.numLevels}`,
+    `Main entrance faces: ${req.northDirection || "Not specified"}`,
+    `Renovation scope: ${req.renovationScope || "Not specified"}`,
+    `Wet wall locations (designer-provided): ${req.wetWalls || "Not specified"}`,
+    `Walls that cannot move (designer-provided): ${req.immovableWalls || "Not specified"}`,
+  ].filter(Boolean);
+
+  return lines.join("\n");
+}
+
+export const CALIBRATION_SYSTEM_PROMPT = `You are a senior interior designer doing the first read of a client's space, before writing the full design brief. You've been given a floor plan image (and possibly space photos) plus a few manual fields the designer already typed in.
+
+Produce a short "space reading summary" as five fields:
+- roomCount: how many rooms/zones you can identify, named specifically (not "3 rooms" — name them, e.g. "4 rooms identified: living room, two bedrooms, kitchen")
+- lightDirection: what you can tell about natural light from the floor plan's window placements and the stated entrance direction — be specific about which side light likely enters from, or say clearly if you cannot tell
+- elements: notable spatial elements you can actually see (open-plan areas, corridors, balconies, single vs. multiple entry points) — reference what's really in the image, not generic boilerplate
+- circulation: any traffic-flow observations — bottlenecks, awkward adjacencies, dead-end corridors — based on the actual layout, or note if circulation looks fine
+- unclear: what you genuinely could not read clearly from the image (obscured dimensions, ambiguous wall thickness, unclear room boundaries) — if nothing is unclear, say so; if no floor plan was provided at all, say that plainly here instead of guessing
+
+Ground every field in what is actually visible or actually stated — never invent room names, directions, or issues that aren't supported by the image or the manual fields. If the floor plan is genuinely illegible or missing, say that honestly in the relevant fields rather than fabricating specifics. Keep each field to 1-2 sentences.`;

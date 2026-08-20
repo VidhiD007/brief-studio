@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { initialState, MAX_PHOTOS, MAX_REF_IMAGES, type BriefOutput, type WizardState } from "./types";
-import { generateOutput, refineOutput } from "./api";
+import { calibrateSpace, generateOutput, refineOutput } from "./api";
 import { validateStep } from "./derived";
 
 // Shown only if /api/generate is completely unreachable (the server itself
@@ -60,25 +60,18 @@ export function useWizard() {
     }, 10);
   };
 
-  const generateCalibration = () => {
-    setState((s) => {
-      const names = s.rooms.filter((r) => r.name.trim()).map((r) => r.name.trim());
-      return {
-        ...s,
-        calibration: {
-          roomCount: names.length > 0 ? `${names.length} rooms identified: ${names.join(", ")}` : "3 rooms detected from floor plan",
-          lightDirection: s.northDirection
-            ? `Natural light appears to enter primarily from the ${s.northDirection} side`
-            : "Unable to determine light direction — north orientation was not specified",
-          elements: "Open plan living-dining area, corridor connecting bedrooms, kitchen with single entry point, bathroom adjacent to bedroom 1, balcony or terrace visible",
-          circulation: "Potential bottleneck at the corridor-to-kitchen junction — clearance appears narrow for two-way traffic",
-          unclear: s.floorPlan
-            ? "Some dimension markings are partially obscured. Wall thickness near bathroom is ambiguous — verify load-bearing status."
-            : "No floor plan was uploaded — calibration is estimated from manual inputs only.",
-        },
-        calibrationEdits: {},
-      };
-    });
+  // Real Claude vision analysis of the uploaded floor plan (and up to 3 space
+  // photos) plus whatever manual fields were entered. Deliberately does not
+  // fall back to invented text on failure — see calibrationError handling.
+  const runCalibration = async () => {
+    patch({ calibrating: true, calibrationError: "", calibration: null, calibrationEdits: {} });
+    try {
+      const calibration = await calibrateSpace(state);
+      patch({ calibrating: false, calibration });
+    } catch (err) {
+      console.error("Calibration failed:", err);
+      patch({ calibrating: false, calibrationError: "Couldn't analyze your space right now. Check your connection and try again." });
+    }
   };
 
   const handleNext = () => {
@@ -88,9 +81,9 @@ export function useWizard() {
     // client-side so this mainly guards against stray Enter-key submits.
     if (state.step !== 1.5 && !validateStep(state).valid) return;
     if (state.step === 1) {
-      generateCalibration();
       patch({ step: 1.5 });
       scrollTop();
+      runCalibration();
     } else if (state.step === 1.5) {
       patch({ step: 2 });
       scrollTop();
@@ -214,6 +207,7 @@ export function useWizard() {
     handleNext,
     handleBack,
     goToStep,
+    retryCalibration: runCalibration,
     toggleChip,
     toggleStyle,
     addCustomMustHave,

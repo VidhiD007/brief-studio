@@ -1,9 +1,17 @@
-import type { BriefOutput, Calibration, WizardState } from "./types";
+import type { BriefOutput, Calibration, UploadedImage, WizardState } from "./types";
 
 // In dev, Vite proxies /api to the local backend (see vite.config.ts).
 // In production, the frontend and backend are usually deployed separately
 // (e.g. Vercel + Render), so VITE_API_URL must point at the backend's URL.
 const API_BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
+
+// UploadedImage.url is a data: URL (from FileReader) — split it into the
+// {mediaType, dataBase64} shape the server expects.
+function toImagePayload(img: UploadedImage): { mediaType: string; dataBase64: string } {
+  const match = /^data:([^;]+);base64,(.*)$/s.exec(img.url);
+  if (!match) throw new Error(`Unexpected image data URL for ${img.name}`);
+  return { mediaType: match[1], dataBase64: match[2] };
+}
 
 function toBriefPayload(s: WizardState) {
   const cal: Record<string, string> = {};
@@ -68,6 +76,30 @@ export async function generateOutput(state: WizardState): Promise<BriefOutput> {
   if (!res.ok) throw new Error(`Generate failed: ${res.status}`);
   const data = await res.json();
   return data.output as BriefOutput;
+}
+
+export async function calibrateSpace(state: WizardState): Promise<Calibration> {
+  const body = {
+    floorPlanImage: state.floorPlan ? toImagePayload(state.floorPlan) : null,
+    spacePhotos: state.spacePhotos.slice(0, 3).map(toImagePayload),
+    rooms: state.rooms,
+    totalArea: state.totalArea,
+    areaUnit: state.areaUnit,
+    ceilingHeight: state.ceilingHeight,
+    numLevels: state.numLevels,
+    northDirection: state.northDirection,
+    renovationScope: state.renovationScope,
+    wetWalls: state.wetWalls,
+    immovableWalls: state.immovableWalls,
+  };
+  const res = await fetch(`${API_BASE}/api/calibrate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Calibration failed: ${res.status}`);
+  const data = await res.json();
+  return data.calibration as Calibration;
 }
 
 export async function refineOutput(
