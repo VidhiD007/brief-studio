@@ -1,5 +1,10 @@
 import type { BriefOutput, Calibration, WizardState } from "./types";
 
+// In dev, Vite proxies /api to the local backend (see vite.config.ts).
+// In production, the frontend and backend are usually deployed separately
+// (e.g. Vercel + Render), so VITE_API_URL must point at the backend's URL.
+const API_BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
+
 function toBriefPayload(s: WizardState) {
   const cal: Record<string, string> = {};
   if (s.calibration) {
@@ -55,7 +60,7 @@ function toBriefPayload(s: WizardState) {
 }
 
 export async function generateOutput(state: WizardState): Promise<BriefOutput> {
-  const res = await fetch("/api/generate", {
+  const res = await fetch(`${API_BASE}/api/generate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ brief: toBriefPayload(state) }),
@@ -70,7 +75,7 @@ export async function refineOutput(
   previousOutput: BriefOutput,
   refinement: string,
 ): Promise<BriefOutput> {
-  const res = await fetch("/api/refine", {
+  const res = await fetch(`${API_BASE}/api/refine`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ brief: toBriefPayload(state), previousOutput, refinement }),
