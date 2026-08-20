@@ -31,7 +31,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
           <input type="number" value={state.numPeople} onChange={(e) => patch({ numPeople: e.target.value })} placeholder="e.g. 4" style={{ width: 110 }} />
         </div>
       ) : (
-        <div style={{ display: "flex", gap: 14, marginBottom: 22 }}>
+        <div className="two-col-row" style={{ display: "flex", gap: 14, marginBottom: 22 }}>
           <div style={{ flex: 1 }}>
             <FieldLabel required>Staff count</FieldLabel>
             <input type="number" value={state.staffCount} onChange={(e) => patch({ staffCount: e.target.value })} placeholder="e.g. 12" style={{ width: "100%" }} />
@@ -145,7 +145,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 14, marginBottom: 22 }}>
+      <div className="two-col-row" style={{ display: "flex", gap: 14, marginBottom: 22 }}>
         <div style={{ flex: 1 }}>
           <FieldLabel>Maintenance level</FieldLabel>
           <RadioGroup options={MAINTENANCE_OPTIONS} value={state.maintenanceLevel} onSelect={(v) => patch({ maintenanceLevel: v })} direction="column" />

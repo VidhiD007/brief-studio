@@ -19,12 +19,12 @@ export function TopBar({ wizard }: { wizard: Wizard }) {
   const step = state.step;
 
   return (
-    <div style={{ height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderBottom: "1px solid #2a2a32", flexShrink: 0 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 160 }}>
+    <div className="top-bar" style={{ height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderBottom: "1px solid #2a2a32", flexShrink: 0 }}>
+      <div className="top-bar-brand" style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 160 }}>
         <Logo />
-        <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.3, color: "#f0ece4" }}>Brief Studio</span>
+        <span className="top-bar-brand-text" style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.3, color: "#f0ece4" }}>Brief Studio</span>
       </div>
-      <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+      <div className="step-dots-row" style={{ display: "flex", gap: 24, alignItems: "center" }}>
         {STEP_DOTS.map((dot) => {
           const active = dot.num === 5 ? step === 5 : dot.num === 1 ? step <= 1.5 : step === dot.num;
           const completed = dot.num === 1 ? step > 1.5 : step > dot.num;
@@ -36,9 +36,9 @@ export function TopBar({ wizard }: { wizard: Wizard }) {
           );
         })}
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 120, justifyContent: "flex-end" }}>
+      <div className="top-bar-actions" style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 120, justifyContent: "flex-end" }}>
         <div className="top-bar-btn" onClick={() => patch({ sidebarOpen: !state.sidebarOpen })}>Summary</div>
-        <div className="top-bar-btn">Save draft</div>
+        <div className="top-bar-btn top-bar-btn-save">Save draft</div>
       </div>
     </div>
   );

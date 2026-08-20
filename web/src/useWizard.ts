@@ -1,7 +1,35 @@
 import { useRef, useState } from "react";
-import { initialState, MAX_PHOTOS, MAX_REF_IMAGES, type WizardState } from "./types";
+import { initialState, MAX_PHOTOS, MAX_REF_IMAGES, type BriefOutput, type WizardState } from "./types";
 import { generateOutput, refineOutput } from "./api";
 import { validateStep } from "./derived";
+
+// Shown only if /api/generate is completely unreachable (the server itself
+// already has its own mock fallback for a missing/failing API key — this is
+// the last-resort path for network failures that never reach the server at
+// all, so the designer sees something instead of a blank screen).
+function offlineFallbackOutput(): BriefOutput {
+  return {
+    analysis: [{ label: "Note", value: "Could not reach the server — showing placeholder content." }],
+    flags: [{ text: "Check your connection and try generating again." }],
+    params: [{ label: "Status", value: "Offline" }],
+    approaches: [
+      {
+        name: "Sample approach",
+        summary: "Generation didn't complete — go back and click Generate again once you're back online.",
+        zones: [{ text: "N/A" }],
+        traffic: "N/A",
+        pros: [{ text: "N/A" }],
+        constraints: [{ text: "N/A" }],
+        budgetLine: "N/A",
+      },
+    ],
+    palette: [{ name: "Placeholder", hex: "#b8860b", desc: "Accent" }],
+    materials: [{ name: "Placeholder", rationale: "N/A" }],
+    lighting: "N/A",
+    moodSummary: "N/A",
+    actions: [{ num: 1, text: "Try generating again once you're back online." }],
+  };
+}
 
 function readFile(file: File): Promise<{ name: string; url: string }> {
   return new Promise((resolve) => {
@@ -12,7 +40,13 @@ function readFile(file: File): Promise<{ name: string; url: string }> {
 }
 
 export function useWizard() {
-  const [state, setState] = useState<WizardState>(initialState);
+  // On mobile the sidebar becomes a full-screen overlay (see theme.css), so
+  // defaulting it open would cover the form before the designer has typed
+  // anything. Desktop keeps the previous default of starting open.
+  const [state, setState] = useState<WizardState>(() => ({
+    ...initialState,
+    sidebarOpen: typeof window === "undefined" || window.innerWidth > 768,
+  }));
   const contentRef = useRef<HTMLDivElement | null>(null);
   const outputRef = useRef<HTMLDivElement | null>(null);
   const genTimer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -143,7 +177,7 @@ export function useWizard() {
     } catch (err) {
       console.error("Generation failed:", err);
       if (genTimer.current) clearInterval(genTimer.current);
-      patch({ generating: false, showOutput: true });
+      patch({ generating: false, showOutput: true, output: offlineFallbackOutput() });
     }
   };
 

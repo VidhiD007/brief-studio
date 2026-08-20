@@ -21,8 +21,8 @@ export default function App() {
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#1e1e24", fontFamily: "var(--font-sans)" }}>
       <TopBar wizard={wizard} />
-      <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
-        <div ref={contentRef} style={{ flex: 1, overflowY: "auto", padding: "36px 44px" }}>
+      <div className="wizard-body" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+        <div ref={contentRef} className="content-pane" style={{ flex: 1, overflowY: "auto", padding: "36px 44px" }}>
           {state.step === 1 && <Step1 wizard={wizard} />}
           {state.step === 1.5 && <Step1_5 wizard={wizard} />}
           {state.step === 2 && <Step2 wizard={wizard} />}

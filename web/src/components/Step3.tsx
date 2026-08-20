@@ -43,7 +43,7 @@ export function Step3({ wizard }: { wizard: Wizard }) {
             <FieldLabel>Rooms with specific Vastu requirements</FieldLabel>
             <ChipGroup options={VASTU_ROOM_CHIPS} selected={state.vastuRooms} onToggle={(v) => toggleChip("vastuRooms", v)} />
           </div>
-          <div style={{ display: "flex", gap: 16, marginBottom: 22 }}>
+          <div className="responsive-row" style={{ display: "flex", gap: 16, marginBottom: 22 }}>
             {VASTU_TOGGLES.map((t) => (
               <div key={t.key} style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, color: "#6a6a6a", marginBottom: 7 }}>{t.label}</div>

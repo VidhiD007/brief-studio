@@ -30,7 +30,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
 
       <div style={{ marginBottom: 22 }}>
         <div className="field-label" style={{ marginBottom: 12 }}>Colour mood<RequiredMark /></div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10 }}>
+        <div className="grid-mobile-2" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10 }}>
           {COLOR_MOODS.map((mood) => (
             <div
               key={mood.id}
@@ -52,7 +52,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
 
       <div style={{ marginBottom: 22 }}>
         <div className="field-label" style={{ marginBottom: 12 }}>Lighting preference<RequiredMark /></div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
+        <div className="grid-mobile-2" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
           {LIGHTING_PREFS.map((lp) => (
             <div
               key={lp.value}

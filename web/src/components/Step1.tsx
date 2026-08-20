@@ -12,7 +12,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 36 }}>Upload your floor plan and provide space details</div>
 
       <div style={{ fontSize: 15, fontWeight: 540, marginBottom: 18, color: "#f0ece4" }}>Project basics</div>
-      <div style={{ display: "flex", gap: 14, marginBottom: 18 }}>
+      <div className="two-col-row" style={{ display: "flex", gap: 14, marginBottom: 18 }}>
         <div style={{ flex: 1 }}>
           <FieldLabel required>Project name</FieldLabel>
           <input
@@ -136,7 +136,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
           ))}
         </div>
 
-        <div style={{ display: "flex", gap: 14, marginBottom: 18 }}>
+        <div className="two-col-row" style={{ display: "flex", gap: 14, marginBottom: 18 }}>
           <div style={{ flex: 1 }}>
             <FieldLabel>Ceiling height</FieldLabel>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>

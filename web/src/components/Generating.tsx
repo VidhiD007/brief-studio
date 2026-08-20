@@ -5,9 +5,9 @@ export function Generating({ wizard }: { wizard: Wizard }) {
   const { state } = wizard;
 
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#1e1e24", fontFamily: "var(--font-sans)", gap: 28 }}>
-      <div style={{ fontSize: 24, fontWeight: 340, color: "#f0ece4", letterSpacing: -0.3 }}>Generating your design strategy</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, width: 340 }}>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#1e1e24", fontFamily: "var(--font-sans)", gap: 28, padding: "0 20px" }}>
+      <div style={{ fontSize: 24, fontWeight: 340, color: "#f0ece4", letterSpacing: -0.3, textAlign: "center" }}>Generating your design strategy</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", maxWidth: 340 }}>
         {GEN_MESSAGES.map((text, i) => (
           <div
             key={text}

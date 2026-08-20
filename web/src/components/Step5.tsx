@@ -9,7 +9,7 @@ export function Step5({ wizard }: { wizard: Wizard }) {
     <div className="fade-in" style={{ maxWidth: 820 }}>
       <div style={{ fontSize: 26, fontWeight: 340, letterSpacing: -0.5, marginBottom: 4 }}>Review &amp; generate</div>
       <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 32 }}>Confirm your inputs and generate your design strategy document</div>
-      <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+      <div className="responsive-row" style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className="field-label" style={{ marginBottom: 12 }}>Your inputs</div>
           {sections.map((sect) => {
@@ -55,7 +55,7 @@ export function Step5({ wizard }: { wizard: Wizard }) {
             );
           })}
         </div>
-        <div style={{ width: 300, flexShrink: 0 }}>
+        <div className="step5-side-panel" style={{ width: 300, flexShrink: 0 }}>
           <div style={{ background: "#28282e", border: "1px solid #3a3a42", borderRadius: 10, padding: 20 }}>
             <div className="field-label" style={{ marginBottom: 14 }}>What you will receive</div>
             <div style={{ fontSize: 13, color: "#a0a0a0", lineHeight: 1.7 }}>
