@@ -9,7 +9,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
   return (
     <div className="fade-in" style={{ maxWidth: 720 }}>
       <div style={{ fontSize: 26, fontWeight: 340, letterSpacing: -0.5, marginBottom: 4 }}>Visual direction</div>
-      <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 36 }}>Define the client's visual taste and style preferences</div>
+      <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 36 }}>Define the client's visual taste and style preferences</div>
 
       <div style={{ marginBottom: 22 }}>
         <FieldLabel required>Style direction (pick up to 3)</FieldLabel>
@@ -39,10 +39,10 @@ export function Step4({ wizard }: { wizard: Wizard }) {
             >
               <div style={{ display: "flex", gap: 4, marginBottom: 8, justifyContent: "center" }}>
                 {mood.colors.map((c) => (
-                  <div key={c} style={{ width: 20, height: 20, borderRadius: "50%", background: c, border: "1px solid #3a3a42" }} />
+                  <div key={c} style={{ width: 20, height: 20, borderRadius: "50%", background: c, border: "1px solid var(--border)" }} />
                 ))}
               </div>
-              <div style={{ fontSize: 11, color: "#8a8a8a", textAlign: "center", lineHeight: 1.3 }}>{mood.id}</div>
+              <div style={{ fontSize: 11, color: "var(--text-dim)", textAlign: "center", lineHeight: 1.3 }}>{mood.id}</div>
             </div>
           ))}
         </div>
@@ -60,8 +60,8 @@ export function Step4({ wizard }: { wizard: Wizard }) {
               style={{ flex: "unset" }}
               onClick={() => patch({ lightingPref: lp.value })}
             >
-              <div style={{ fontSize: 13, color: "#f0ece4", marginBottom: 2 }}>{lp.label}</div>
-              <div style={{ fontSize: 11, color: "#5a5a5a", lineHeight: 1.3 }}>{lp.desc}</div>
+              <div style={{ fontSize: 13, color: "var(--text)", marginBottom: 2 }}>{lp.label}</div>
+              <div style={{ fontSize: 11, color: "var(--text-subtle)", lineHeight: 1.3 }}>{lp.desc}</div>
             </div>
           ))}
         </div>

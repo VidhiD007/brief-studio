@@ -9,9 +9,9 @@ export function Step1({ wizard }: { wizard: Wizard }) {
   return (
     <div className="fade-in" style={{ maxWidth: 720 }}>
       <div style={{ fontSize: 26, fontWeight: 340, letterSpacing: -0.5, marginBottom: 4 }}>Space documentation</div>
-      <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 36 }}>Upload your floor plan and provide space details</div>
+      <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 36 }}>Upload your floor plan and provide space details</div>
 
-      <div style={{ fontSize: 15, fontWeight: 540, marginBottom: 18, color: "#f0ece4" }}>Project basics</div>
+      <div style={{ fontSize: 15, fontWeight: 540, marginBottom: 18, color: "var(--text)" }}>Project basics</div>
       <div className="two-col-row" style={{ display: "flex", gap: 14, marginBottom: 18 }}>
         <div style={{ flex: 1 }}>
           <FieldLabel required>Project name</FieldLabel>
@@ -51,7 +51,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
           label="Drop your floor plan here or click to upload"
         />
         {state.floorPlanError ? (
-          <div style={{ fontSize: 12, color: "#e5484d", marginTop: 8, padding: "9px 12px", background: "rgba(229,72,77,0.08)", borderRadius: 8, border: "1px solid rgba(229,72,77,0.25)" }}>
+          <div style={{ fontSize: 12, color: "var(--danger)", marginTop: 8, padding: "9px 12px", background: "rgba(229,72,77,0.08)", borderRadius: 8, border: "1px solid rgba(229,72,77,0.25)" }}>
             {state.floorPlanError}
           </div>
         ) : null}
@@ -88,7 +88,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
               style={{ width: 150 }}
             />
             <div
-              style={{ padding: "7px 12px", background: "#28282e", border: "1px solid #3a3a42", borderRadius: 8, cursor: "pointer", fontSize: 12, color: "#6a6a6a", userSelect: "none" }}
+              style={{ padding: "7px 12px", background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, cursor: "pointer", fontSize: 12, color: "var(--text-tertiary)", userSelect: "none" }}
               onClick={() => patch({ areaUnit: state.areaUnit === "sqft" ? "sqm" : "sqft" })}
             >
               {state.areaUnit === "sqft" ? "sq ft" : "sq m"}
@@ -123,7 +123,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
                 placeholder="L"
                 style={{ width: 60, fontSize: 13, padding: "9px 10px", textAlign: "center" }}
               />
-              <span style={{ color: "#3a3a42", fontSize: 12 }}>×</span>
+              <span style={{ color: "var(--text-faint)", fontSize: 12 }}>×</span>
               <input
                 value={room.w}
                 onChange={(e) =>
@@ -136,7 +136,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
                 placeholder="W"
                 style={{ width: 60, fontSize: 13, padding: "9px 10px", textAlign: "center" }}
               />
-              <span style={{ fontSize: 11, color: "#3a3a42" }}>ft</span>
+              <span style={{ fontSize: 11, color: "var(--text-faint)" }}>ft</span>
             </div>
           ))}
         </div>
@@ -152,7 +152,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
                 placeholder="e.g. 9"
                 style={{ width: 100 }}
               />
-              <span style={{ fontSize: 12, color: "#5a5a5a" }}>ft</span>
+              <span style={{ fontSize: 12, color: "var(--text-subtle)" }}>ft</span>
             </div>
             <div className="helper-note">Floor to ceiling, approximate</div>
           </div>

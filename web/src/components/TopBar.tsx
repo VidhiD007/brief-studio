@@ -1,28 +1,30 @@
 import type { Wizard } from "../useWizard";
+import type { Theme } from "../useTheme";
 import { STEP_DOTS } from "../constants";
+import { ThemeToggleButton } from "./common";
 
 function Logo() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="4" width="10" height="13" rx="2" stroke="#b8860b" strokeWidth="1.5" fill="none" />
-      <rect x="16" y="4" width="10" height="8" rx="2" stroke="#f0ece4" strokeWidth="1.5" fill="none" />
-      <rect x="16" y="16" width="10" height="8" rx="2" stroke="#f0ece4" strokeWidth="1.5" fill="none" />
-      <line x1="5" y1="8" x2="9" y2="8" stroke="#b8860b" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="5" y1="11" x2="9" y2="11" stroke="#b8860b" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="5" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.2" strokeLinecap="round" />
+      <rect x="2" y="4" width="10" height="13" rx="2" stroke="var(--accent)" strokeWidth="1.5" fill="none" />
+      <rect x="16" y="4" width="10" height="8" rx="2" stroke="var(--text)" strokeWidth="1.5" fill="none" />
+      <rect x="16" y="16" width="10" height="8" rx="2" stroke="var(--text)" strokeWidth="1.5" fill="none" />
+      <line x1="5" y1="8" x2="9" y2="8" stroke="var(--accent)" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="5" y1="11" x2="9" y2="11" stroke="var(--accent)" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="5" y1="14" x2="8" y2="14" stroke="var(--accent)" strokeWidth="1.2" strokeLinecap="round" />
     </svg>
   );
 }
 
-export function TopBar({ wizard }: { wizard: Wizard }) {
+export function TopBar({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: Theme; toggleTheme: () => void }) {
   const { state, patch } = wizard;
   const step = state.step;
 
   return (
-    <div className="top-bar" style={{ height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderBottom: "1px solid #2a2a32", flexShrink: 0 }}>
+    <div className="top-bar" style={{ height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderBottom: "1px solid var(--border-soft)", flexShrink: 0 }}>
       <div className="top-bar-brand" style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 160 }}>
         <Logo />
-        <span className="top-bar-brand-text" style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.3, color: "#f0ece4" }}>Brief Studio</span>
+        <span className="top-bar-brand-text" style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.3, color: "var(--text)" }}>Brief Studio</span>
       </div>
       <div className="step-dots-row" style={{ display: "flex", gap: 24, alignItems: "center" }}>
         {STEP_DOTS.map((dot) => {
@@ -37,6 +39,7 @@ export function TopBar({ wizard }: { wizard: Wizard }) {
         })}
       </div>
       <div className="top-bar-actions" style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 120, justifyContent: "flex-end" }}>
+        <ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
         <div className="top-bar-btn" onClick={() => patch({ sidebarOpen: !state.sidebarOpen })}>Summary</div>
         <div className="top-bar-btn top-bar-btn-save">Save draft</div>
       </div>

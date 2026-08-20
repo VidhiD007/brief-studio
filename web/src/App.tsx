@@ -1,4 +1,5 @@
 import { useWizard } from "./useWizard";
+import { useTheme } from "./useTheme";
 import { TopBar } from "./components/TopBar";
 import { BottomBar } from "./components/BottomBar";
 import { Sidebar } from "./components/Sidebar";
@@ -14,13 +15,14 @@ import { Output } from "./components/Output";
 export default function App() {
   const wizard = useWizard();
   const { state, contentRef } = wizard;
+  const { theme, toggleTheme } = useTheme();
 
   if (state.generating) return <Generating wizard={wizard} />;
-  if (state.showOutput) return <Output wizard={wizard} />;
+  if (state.showOutput) return <Output wizard={wizard} theme={theme} toggleTheme={toggleTheme} />;
 
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#1e1e24", fontFamily: "var(--font-sans)" }}>
-      <TopBar wizard={wizard} />
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", fontFamily: "var(--font-sans)" }}>
+      <TopBar wizard={wizard} theme={theme} toggleTheme={toggleTheme} />
       <div className="wizard-body" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
         <div ref={contentRef} className="content-pane" style={{ flex: 1, overflowY: "auto", padding: "36px 44px" }}>
           {state.step === 1 && <Step1 wizard={wizard} />}

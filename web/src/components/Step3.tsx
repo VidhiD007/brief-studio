@@ -11,7 +11,7 @@ export function Step3({ wizard }: { wizard: Wizard }) {
   return (
     <div className="fade-in" style={{ maxWidth: 720 }}>
       <div style={{ fontSize: 26, fontWeight: 340, letterSpacing: -0.5, marginBottom: 4 }}>Vastu &amp; Feng Shui</div>
-      <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 28 }}>Optional — select "Neither" to skip this step</div>
+      <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 28 }}>Optional — select "Neither" to skip this step</div>
 
       <div style={{ marginBottom: 24 }}>
         <FieldLabel required>This project will follow</FieldLabel>
@@ -46,7 +46,7 @@ export function Step3({ wizard }: { wizard: Wizard }) {
           <div className="responsive-row" style={{ display: "flex", gap: 16, marginBottom: 22 }}>
             {VASTU_TOGGLES.map((t) => (
               <div key={t.key} style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, color: "#6a6a6a", marginBottom: 7 }}>{t.label}</div>
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginBottom: 7 }}>{t.label}</div>
                 <div style={{ display: "flex", gap: 6 }}>
                   <div className={`mini-chip${state[t.key] === "yes" ? " active" : ""}`} onClick={() => patch({ [t.key]: "yes" } as any)}>Yes</div>
                   <div className={`mini-chip${state[t.key] === "no" ? " active" : ""}`} onClick={() => patch({ [t.key]: "no" } as any)}>No</div>
@@ -92,9 +92,9 @@ export function Step3({ wizard }: { wizard: Wizard }) {
       ) : null}
 
       {state.vastuChoice === "neither" ? (
-        <div style={{ textAlign: "center", padding: "40px 0", color: "#4a4a52" }}>
+        <div style={{ textAlign: "center", padding: "40px 0", color: "var(--text-faint)" }}>
           <div style={{ fontSize: 15, marginBottom: 4 }}>No Vastu or Feng Shui considerations</div>
-          <div style={{ fontSize: 13, color: "#3a3a42" }}>Click Continue to proceed to visual direction</div>
+          <div style={{ fontSize: 13, color: "var(--text-faint)" }}>Click Continue to proceed to visual direction</div>
         </div>
       ) : null}
     </div>
@@ -103,8 +103,8 @@ export function Step3({ wizard }: { wizard: Wizard }) {
 
 function Disclaimer({ text }: { text: string }) {
   return (
-    <div style={{ padding: "12px 16px", background: "rgba(184,134,11,0.06)", border: "1px solid rgba(184,134,11,0.15)", borderRadius: 8, marginBottom: 24 }}>
-      <div style={{ fontSize: 12, color: "#b8860b", lineHeight: 1.5 }}>{text}</div>
+    <div style={{ padding: "12px 16px", background: "var(--accent-soft-weak)", border: "1px solid var(--accent-soft-border)", borderRadius: 8, marginBottom: 24 }}>
+      <div style={{ fontSize: 12, color: "var(--accent)", lineHeight: 1.5 }}>{text}</div>
     </div>
   );
 }

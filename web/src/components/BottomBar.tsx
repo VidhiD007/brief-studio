@@ -34,11 +34,11 @@ export function BottomBar({ wizard }: { wizard: Wizard }) {
   };
 
   return (
-    <div className="bottom-bar" style={{ height: 58, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderTop: "1px solid #2a2a32", flexShrink: 0, background: "#1e1e24" }}>
+    <div className="bottom-bar" style={{ height: 58, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", borderTop: "1px solid var(--border-soft)", flexShrink: 0, background: "var(--bg)" }}>
       <div className="bottom-bar-back" style={{ minWidth: 120 }}>
         {step > 1 ? <div className="back-btn" onClick={handleBack}>← Back</div> : null}
       </div>
-      <div className="bottom-bar-step-label" style={{ fontFamily: "var(--font-mono)", fontSize: 10, textTransform: "uppercase", letterSpacing: 1, color: "#3a3a42" }}>
+      <div className="bottom-bar-step-label" style={{ fontFamily: "var(--font-mono)", fontSize: 10, textTransform: "uppercase", letterSpacing: 1, color: "var(--text-faint)" }}>
         Step {stepDisplay} of 5
       </div>
       <div className="bottom-bar-actions" style={{ minWidth: 120, display: "flex", justifyContent: "flex-end", position: "relative" }}>
@@ -47,7 +47,7 @@ export function BottomBar({ wizard }: { wizard: Wizard }) {
             className="bottom-bar-error"
             style={{
               position: "absolute", bottom: "100%", right: 0, marginBottom: 10,
-              background: "#28282e", border: "1px solid #b8860b", color: "#b8860b",
+              background: "var(--surface)", border: "1px solid var(--accent)", color: "var(--accent)",
               fontSize: 12, lineHeight: 1.4, padding: "9px 12px", borderRadius: 8,
               maxWidth: 320, textAlign: "right", whiteSpace: "normal",
             }}

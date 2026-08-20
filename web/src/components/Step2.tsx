@@ -18,7 +18,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
   return (
     <div className="fade-in" style={{ maxWidth: 720 }}>
       <div style={{ fontSize: 26, fontWeight: 340, letterSpacing: -0.5, marginBottom: 4 }}>Client requirements</div>
-      <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 36 }}>Who will use this space and what do they need</div>
+      <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 36 }}>Who will use this space and what do they need</div>
 
       <div style={{ marginBottom: 22 }}>
         <FieldLabel required>Who is this space for</FieldLabel>
@@ -84,8 +84,8 @@ export function Step2({ wizard }: { wizard: Wizard }) {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
           <div className="field-label" style={{ marginBottom: 0 }}>Budget</div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 20, fontWeight: 340, color: "#f0ece4" }}>{budgetDisplay}</span>
-            <div style={{ padding: "4px 9px", background: "#28282e", border: "1px solid #3a3a42", borderRadius: 6, fontSize: 11, color: "#6a6a6a", userSelect: "none" }}>USD</div>
+            <span style={{ fontSize: 20, fontWeight: 340, color: "var(--text)" }}>{budgetDisplay}</span>
+            <div style={{ padding: "4px 9px", background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 6, fontSize: 11, color: "var(--text-tertiary)", userSelect: "none" }}>USD</div>
           </div>
         </div>
         <input
@@ -98,7 +98,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
           style={{ width: "100%", cursor: "pointer" }}
         />
         {budgetNote ? (
-          <div style={{ fontSize: 11, color: "#b8860b", marginTop: 6, padding: "7px 11px", background: "rgba(184,134,11,0.06)", borderRadius: 6, border: "1px solid rgba(184,134,11,0.12)" }}>
+          <div style={{ fontSize: 11, color: "var(--accent)", marginTop: 6, padding: "7px 11px", background: "var(--accent-soft-weak)", borderRadius: 6, border: "1px solid var(--accent-soft)" }}>
             {budgetNote}
           </div>
         ) : null}
@@ -108,7 +108,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
 
       <div style={{ marginBottom: 22 }}>
         <FieldLabel required>Pain points</FieldLabel>
-        <div style={{ fontSize: 12, color: "#5a5a5a", marginBottom: 7 }}>What is not working? What did the client say bothers them?</div>
+        <div style={{ fontSize: 12, color: "var(--text-subtle)", marginBottom: 7 }}>What is not working? What did the client say bothers them?</div>
         <textarea
           value={state.painPoints}
           onChange={(e) => patch({ painPoints: e.target.value })}
@@ -137,7 +137,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
             style={{ flex: 1, fontSize: 13, padding: "9px 12px" }}
           />
           <div
-            style={{ padding: "9px 14px", background: "#28282e", border: "1px solid #3a3a42", borderRadius: 8, cursor: "pointer", fontSize: 13, color: "#6a6a6a", userSelect: "none" }}
+            style={{ padding: "9px 14px", background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, cursor: "pointer", fontSize: 13, color: "var(--text-tertiary)", userSelect: "none" }}
             onClick={addCustomMustHave}
           >
             Add

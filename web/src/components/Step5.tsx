@@ -8,7 +8,7 @@ export function Step5({ wizard }: { wizard: Wizard }) {
   return (
     <div className="fade-in" style={{ maxWidth: 820 }}>
       <div style={{ fontSize: 26, fontWeight: 340, letterSpacing: -0.5, marginBottom: 4 }}>Review &amp; generate</div>
-      <div style={{ fontSize: 14, color: "#5a5a5a", marginBottom: 32 }}>Confirm your inputs and generate your design strategy document</div>
+      <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 32 }}>Confirm your inputs and generate your design strategy document</div>
       <div className="responsive-row" style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className="field-label" style={{ marginBottom: 12 }}>Your inputs</div>
@@ -21,8 +21,8 @@ export function Step5({ wizard }: { wizard: Wizard }) {
                   onClick={() => patch((s) => ({ expandedSections: { ...s.expandedSections, [sect.key]: !s.expandedSections[sect.key] } }))}
                 >
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: 540, color: "#f0ece4" }}>{sect.label}</div>
-                    <div style={{ fontSize: 11, color: "#4a4a52", marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    <div style={{ fontSize: 13, fontWeight: 540, color: "var(--text)" }}>{sect.label}</div>
+                    <div style={{ fontSize: 11, color: "var(--text-faint)", marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {sect.summary}
                     </div>
                   </div>
@@ -40,11 +40,11 @@ export function Step5({ wizard }: { wizard: Wizard }) {
                   </div>
                 </div>
                 {expanded ? (
-                  <div style={{ padding: "0 14px 12px", borderTop: "1px solid #3a3a42" }}>
+                  <div style={{ padding: "0 14px 12px", borderTop: "1px solid var(--border)" }}>
                     {sect.items.map((item) => (
-                      <div key={item.k} style={{ display: "flex", justifyContent: "space-between", gap: 8, padding: "6px 0", borderBottom: "1px solid #25252a" }}>
-                        <div style={{ fontSize: 11, color: "#4a4a52", flexShrink: 0 }}>{item.k}</div>
-                        <div style={{ fontSize: 11, color: "#8a8a8a", textAlign: "right", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      <div key={item.k} style={{ display: "flex", justifyContent: "space-between", gap: 8, padding: "6px 0", borderBottom: "1px solid var(--border-faint)" }}>
+                        <div style={{ fontSize: 11, color: "var(--text-faint)", flexShrink: 0 }}>{item.k}</div>
+                        <div style={{ fontSize: 11, color: "var(--text-dim)", textAlign: "right", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                           {item.v}
                         </div>
                       </div>
@@ -56,17 +56,17 @@ export function Step5({ wizard }: { wizard: Wizard }) {
           })}
         </div>
         <div className="step5-side-panel" style={{ width: 300, flexShrink: 0 }}>
-          <div style={{ background: "#28282e", border: "1px solid #3a3a42", borderRadius: 10, padding: 20 }}>
+          <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 10, padding: 20 }}>
             <div className="field-label" style={{ marginBottom: 14 }}>What you will receive</div>
-            <div style={{ fontSize: 13, color: "#a0a0a0", lineHeight: 1.7 }}>
-              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Space analysis — confirmed against your corrections</div>
-              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Design parameters — structured summary of all requirements</div>
-              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Three spatial approaches — text descriptions with reasoning, not floor plan drawings</div>
-              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Visual direction brief — palette, materials, lighting recommendations</div>
-              <div style={{ marginBottom: 10 }}><span style={{ color: "#b8860b" }}>✓</span> Action sheet — prioritized checklist for your CAD session</div>
+            <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.7 }}>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "var(--accent)" }}>✓</span> Space analysis — confirmed against your corrections</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "var(--accent)" }}>✓</span> Design parameters — structured summary of all requirements</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "var(--accent)" }}>✓</span> Three spatial approaches — text descriptions with reasoning, not floor plan drawings</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "var(--accent)" }}>✓</span> Visual direction brief — palette, materials, lighting recommendations</div>
+              <div style={{ marginBottom: 10 }}><span style={{ color: "var(--accent)" }}>✓</span> Action sheet — prioritized checklist for your CAD session</div>
             </div>
-            <div style={{ borderTop: "1px solid #3a3a42", marginTop: 4, paddingTop: 12 }}>
-              <div style={{ fontSize: 11, color: "#4a4a52", lineHeight: 1.5, fontStyle: "italic" }}>
+            <div style={{ borderTop: "1px solid var(--border)", marginTop: 4, paddingTop: 12 }}>
+              <div style={{ fontSize: 11, color: "var(--text-faint)", lineHeight: 1.5, fontStyle: "italic" }}>
                 Spatial approaches are strategy descriptions, not visual floor plans. The visual brief is a reference for building your mood board, not a finished collage.
               </div>
             </div>
