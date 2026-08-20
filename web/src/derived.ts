@@ -1,5 +1,40 @@
-import { timelineLabel } from "./constants";
+import { isResidentialType, timelineLabel } from "./constants";
 import type { WizardState } from "./types";
+
+export interface StepValidation { valid: boolean; message: string }
+
+// What must be filled in before the wizard lets you continue past each step.
+// Fields not listed here (e.g. room dimensions, wet walls, taste notes) stay optional,
+// matching the "recommended" vs "required" language already shown in the form itself.
+export function validateStep(s: WizardState): StepValidation {
+  const missing: string[] = [];
+
+  if (s.step === 1) {
+    if (!s.projectName.trim()) missing.push("project name");
+    if (!s.spaceType) missing.push("space type");
+    if (!s.projectPhase) missing.push("project phase");
+    if (!s.floorPlan) missing.push("floor plan upload");
+  } else if (s.step === 2) {
+    if (!s.occupantType) missing.push("who this space is for");
+    if (isResidentialType(s.spaceType)) {
+      if (!s.numPeople.trim()) missing.push("number of people");
+    } else {
+      if (!s.staffCount.trim()) missing.push("staff count");
+      if (!s.seatCapacity.trim()) missing.push("capacity");
+    }
+    if (!s.painPoints.trim()) missing.push("pain points");
+    if (!s.timeline) missing.push("timeline");
+  } else if (s.step === 3) {
+    if (!s.vastuChoice) missing.push("a Vastu / Feng Shui / Neither selection");
+  } else if (s.step === 4) {
+    if (s.styleDirections.length === 0) missing.push("at least one style direction");
+    if (!s.colorMood) missing.push("colour mood");
+    if (!s.lightingPref) missing.push("lighting preference");
+  }
+
+  if (missing.length === 0) return { valid: true, message: "" };
+  return { valid: false, message: `Please fill in: ${missing.join(", ")}` };
+}
 
 export interface SummaryItem { label: string; value: string }
 

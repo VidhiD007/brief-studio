@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { initialState, MAX_PHOTOS, MAX_REF_IMAGES, type WizardState } from "./types";
 import { generateOutput, refineOutput } from "./api";
+import { validateStep } from "./derived";
 
 function readFile(file: File): Promise<{ name: string; url: string }> {
   return new Promise((resolve) => {
@@ -47,6 +48,11 @@ export function useWizard() {
   };
 
   const handleNext = () => {
+    // Steps 1.5 and 5 have nothing new to validate here (1.5 is a confirm-only
+    // step, 5's own "Generate" click is gated by every prior step already
+    // having passed). Defense in depth — the Continue button is also disabled
+    // client-side so this mainly guards against stray Enter-key submits.
+    if (state.step !== 1.5 && !validateStep(state).valid) return;
     if (state.step === 1) {
       generateCalibration();
       patch({ step: 1.5 });
