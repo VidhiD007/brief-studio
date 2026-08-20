@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import type { Wizard } from "../useWizard";
 import { PHASE_OPTIONS, RENOVATION_OPTIONS, SPACE_TYPES, DIRECTIONS } from "../constants";
 import { FieldLabel, RadioGroup, RequiredMark, SingleImageUpload, ImageGridUpload } from "./common";
@@ -5,6 +6,17 @@ import { MAX_PHOTOS } from "../types";
 
 export function Step1({ wizard }: { wizard: Wizard }) {
   const { state, patch, handleFPUpload, handlePhotosUpload } = wizard;
+  const floorPlanErrorRef = useRef<HTMLDivElement | null>(null);
+
+  // The floor plan check runs after clicking Continue, so if it fails while
+  // the designer has scrolled down to fill later fields on this same step,
+  // the error would otherwise reappear off-screen with no visible sign
+  // anything happened.
+  useEffect(() => {
+    if (state.floorPlanError) {
+      floorPlanErrorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [state.floorPlanError]);
 
   return (
     <div className="fade-in" style={{ maxWidth: 720 }}>
@@ -51,7 +63,10 @@ export function Step1({ wizard }: { wizard: Wizard }) {
           label="Drop your floor plan here or click to upload"
         />
         {state.floorPlanError ? (
-          <div style={{ fontSize: 12, color: "var(--danger)", marginTop: 8, padding: "9px 12px", background: "rgba(229,72,77,0.08)", borderRadius: 8, border: "1px solid rgba(229,72,77,0.25)" }}>
+          <div
+            ref={floorPlanErrorRef}
+            style={{ fontSize: 12, color: "var(--danger)", marginTop: 8, padding: "9px 12px", background: "rgba(229,72,77,0.08)", borderRadius: 8, border: "1px solid rgba(229,72,77,0.25)" }}
+          >
             {state.floorPlanError}
           </div>
         ) : null}
