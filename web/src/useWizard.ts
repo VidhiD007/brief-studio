@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { initialState, MAX_PHOTOS, MAX_REF_IMAGES, type BriefOutput, type WizardState } from "./types";
 import { calibrateSpace, generateOutput, refineOutput } from "./api";
-import { validateStep } from "./derived";
+import { hasMeaningfulData, validateStep } from "./derived";
 
 // Shown only if /api/generate is completely unreachable (the server itself
 // already has its own mock fallback for a missing/failing API key — this is
@@ -59,6 +59,22 @@ export function useWizard() {
       if (contentRef.current) contentRef.current.scrollTop = 0;
     }, 10);
   };
+
+  // Warn on accidental reload/close once there's real data to lose. Kept in
+  // a ref (rather than a state dependency) so the listener is registered
+  // once, not re-attached on every keystroke.
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const skipUnloadWarning = useRef(false);
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (skipUnloadWarning.current || !hasMeaningfulData(stateRef.current)) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, []);
 
   const handleNext = async () => {
     // Steps 1.5 and 5 have nothing new to validate here (1.5 just displays
@@ -199,6 +215,9 @@ export function useWizard() {
 
   const startNewProject = () => {
     if (window.confirm("Start a new project? Current data will be lost.")) {
+      // Already confirmed above — don't also trigger the browser's own
+      // reload-confirmation prompt on top of it.
+      skipUnloadWarning.current = true;
       window.location.reload();
     }
   };

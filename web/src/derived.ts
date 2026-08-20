@@ -138,3 +138,18 @@ export function reviewSections(s: WizardState): ReviewSection[] {
     },
   ];
 }
+
+// Whether there's real, meaningful entered data worth warning about losing
+// on an accidental reload/close. A handful of representative fields rather
+// than a full deep-diff against the initial state — cheap to read, easy to
+// reason about, and reaching step 2+ already implies Step 1's required
+// fields were filled in (see validateStep).
+export function hasMeaningfulData(s: WizardState): boolean {
+  return (
+    s.step > 1 ||
+    s.projectName.trim() !== "" ||
+    s.spaceType !== "" ||
+    s.floorPlan !== null ||
+    s.spacePhotos.length > 0
+  );
+}
