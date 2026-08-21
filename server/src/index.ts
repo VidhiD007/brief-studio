@@ -155,7 +155,10 @@ app.post("/api/calibrate", async (req, res) => {
 
     const response = await client.messages.parse({
       model: MODEL,
-      max_tokens: 1200,
+      // Was 1200 — too tight for a detailed multi-room floor plan (the model's
+      // description of a complex layout can legitimately run long, and running
+      // out of room mid-string produces invalid JSON, not a graceful trim).
+      max_tokens: 3000,
       system: CALIBRATION_SYSTEM_PROMPT,
       output_config: { format: calibrationFormat },
       messages: [{ role: "user", content }],
