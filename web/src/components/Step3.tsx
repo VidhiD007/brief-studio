@@ -4,6 +4,7 @@ import {
   VASTU_ROOM_CHIPS, VASTU_TOGGLES,
 } from "../constants";
 import { ChipGroup, FieldLabel, RadioGroup } from "./common";
+import { IconCompass } from "./Icons";
 
 export function Step3({ wizard }: { wizard: Wizard }) {
   const { state, patch, toggleChip } = wizard;
@@ -14,7 +15,7 @@ export function Step3({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 28 }}>Optional — select "Neither" to skip this step</div>
 
       <div style={{ marginBottom: 24 }}>
-        <FieldLabel required>This project will follow</FieldLabel>
+        <FieldLabel required icon={<IconCompass size={13} />}>This project will follow</FieldLabel>
         <RadioGroup options={VASTU_CHOICE_OPTIONS} value={state.vastuChoice} onSelect={(v) => patch({ vastuChoice: v })} />
       </div>
 

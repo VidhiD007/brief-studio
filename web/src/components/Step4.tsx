@@ -1,6 +1,7 @@
 import type { Wizard } from "../useWizard";
 import { COLOR_MOODS, LIGHTING_PREFS, STYLE_CHIPS } from "../constants";
-import { FieldLabel, ImageGridUpload, RequiredMark } from "./common";
+import { FieldLabel, ImageGridUpload, RequiredMark, SectionHeading } from "./common";
+import { IconBulb, IconImages, IconPalette, IconPencil } from "./Icons";
 import { MAX_REF_IMAGES } from "../types";
 
 export function Step4({ wizard }: { wizard: Wizard }) {
@@ -12,7 +13,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 36 }}>Define the client's visual taste and style preferences</div>
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel required>Style direction (pick up to 3)</FieldLabel>
+        <FieldLabel required icon={<IconPalette size={13} />}>Style direction (pick up to 3)</FieldLabel>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {STYLE_CHIPS.map((chip) => (
             <div
@@ -51,7 +52,9 @@ export function Step4({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div style={{ marginBottom: 22 }}>
-        <div className="field-label" style={{ marginBottom: 12 }}>Lighting preference<RequiredMark /></div>
+        <div className="field-label" style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}>
+          <IconBulb size={13} /> Lighting preference<RequiredMark />
+        </div>
         <div className="grid-mobile-2" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
           {LIGHTING_PREFS.map((lp) => (
             <div
@@ -84,7 +87,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div style={{ marginBottom: 22 }}>
-        <div className="section-title">Reference images</div>
+        <SectionHeading icon={<IconImages size={17} />}>Reference images</SectionHeading>
         <div className="section-sub">Upload inspiration — screenshots from Pinterest, Instagram, magazines (up to {MAX_REF_IMAGES})</div>
         <ImageGridUpload
           images={state.referenceImages}
@@ -96,7 +99,7 @@ export function Step4({ wizard }: { wizard: Wizard }) {
       </div>
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel>Designer taste notes</FieldLabel>
+        <FieldLabel icon={<IconPencil size={13} />}>Designer taste notes</FieldLabel>
         <textarea
           value={state.tasteNotes}
           onChange={(e) => patch({ tasteNotes: e.target.value })}

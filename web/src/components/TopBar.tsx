@@ -2,6 +2,9 @@ import type { Wizard } from "../useWizard";
 import type { Theme } from "../useTheme";
 import { STEP_DOTS } from "../constants";
 import { ThemeToggleButton } from "./common";
+import { IconCheck, IconCompass, IconFloorPlan, IconChecklist, IconPalette, IconPeople } from "./Icons";
+
+const STEP_ICONS = [IconFloorPlan, IconPeople, IconCompass, IconPalette, IconChecklist];
 
 function Logo() {
   return (
@@ -27,12 +30,15 @@ export function TopBar({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: 
         <span className="top-bar-brand-text" style={{ fontSize: 16, fontWeight: 600, letterSpacing: -0.3, color: "var(--text)" }}>Brief Studio</span>
       </div>
       <div className="step-dots-row" style={{ display: "flex", gap: 24, alignItems: "center" }}>
-        {STEP_DOTS.map((dot) => {
+        {STEP_DOTS.map((dot, i) => {
           const active = dot.num === 5 ? step === 5 : dot.num === 1 ? step <= 1.5 : step === dot.num;
           const completed = dot.num === 1 ? step > 1.5 : step > dot.num;
+          const StepIcon = STEP_ICONS[i];
           return (
             <div key={dot.num} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
-              <div className={`step-dot${active ? " active" : completed ? " completed" : ""}`}>{dot.num}</div>
+              <div className={`step-dot${active ? " active" : completed ? " completed" : ""}`}>
+                {completed ? <IconCheck size={13} /> : <StepIcon size={14} />}
+              </div>
               <div className={`step-dot-label${active ? " active" : ""}`}>{dot.label}</div>
             </div>
           );

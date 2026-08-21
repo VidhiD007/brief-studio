@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import type { Wizard } from "../useWizard";
 import { PHASE_OPTIONS, RENOVATION_OPTIONS, SPACE_TYPES, DIRECTIONS } from "../constants";
-import { FieldLabel, RadioGroup, RequiredMark, SingleImageUpload, ImageGridUpload } from "./common";
+import { FieldLabel, RadioGroup, SectionHeading, SingleImageUpload, ImageGridUpload } from "./common";
+import { IconCamera, IconFloorPlan, IconRuler } from "./Icons";
 import { MAX_PHOTOS } from "../types";
 
 export function Step1({ wizard }: { wizard: Wizard }) {
@@ -54,7 +55,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div style={{ marginBottom: 28 }}>
-        <div className="section-title">Floor plan<RequiredMark /></div>
+        <SectionHeading icon={<IconFloorPlan size={17} />} required>Floor plan</SectionHeading>
         <div className="section-sub">Required — upload your floor plan image</div>
         <SingleImageUpload
           image={state.floorPlan}
@@ -71,12 +72,12 @@ export function Step1({ wizard }: { wizard: Wizard }) {
           </div>
         ) : null}
         <div className="helper-note" style={{ fontStyle: "italic" }}>
-          Mark north direction on your floor plan before uploading — even a written N with an arrow helps the AI significantly.
+          Tip: mark north with a written N + arrow — it helps the AI a lot.
         </div>
       </div>
 
       <div style={{ marginBottom: 28 }}>
-        <div className="section-title">Space photos</div>
+        <SectionHeading icon={<IconCamera size={17} />}>Space photos</SectionHeading>
         <div className="section-sub">Recommended — up to {MAX_PHOTOS} photos from corners and center of each room</div>
         <ImageGridUpload
           images={state.spacePhotos}
@@ -89,7 +90,7 @@ export function Step1({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div>
-        <div className="section-title">Manual space data</div>
+        <SectionHeading icon={<IconRuler size={17} />}>Manual space data</SectionHeading>
         <div className="section-sub" style={{ marginBottom: 18 }}>Takes ~5 minutes — dramatically improves output quality</div>
 
         <div style={{ marginBottom: 18 }}>

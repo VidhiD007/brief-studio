@@ -2,6 +2,7 @@ import type { Wizard } from "../useWizard";
 import type { Theme } from "../useTheme";
 import { Button } from "../Button";
 import { ThemeToggleButton } from "./common";
+import { IconChecklist, IconFloorPlan, IconGrid, IconPalette, IconStar } from "./Icons";
 
 export function Output({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: Theme; toggleTheme: () => void }) {
   const { state, patch, outputRef, backToEditor, startNewProject, handleRefine } = wizard;
@@ -33,7 +34,9 @@ export function Output({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: 
 
           {/* Section 1 */}
           <div style={{ marginBottom: 36 }}>
-            <div className="field-label" style={{ marginBottom: 14 }}>1 — Space analysis</div>
+            <div className="field-label" style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 7 }}>
+              <IconFloorPlan size={14} /> 1 — Space analysis
+            </div>
             <div className="responsive-row" style={{ display: "flex", gap: 20, marginBottom: 16 }}>
               {state.floorPlan ? (
                 <div style={{ width: 200, flexShrink: 0, borderRadius: 8, overflow: "hidden", border: "1px solid var(--border)" }}>
@@ -59,7 +62,9 @@ export function Output({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: 
 
           {/* Section 2 */}
           <div style={{ marginBottom: 36 }}>
-            <div className="field-label" style={{ marginBottom: 14 }}>2 — Design parameters</div>
+            <div className="field-label" style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 7 }}>
+              <IconChecklist size={14} /> 2 — Design parameters
+            </div>
             <div style={{ background: "var(--surface)", borderRadius: 10, padding: 18 }}>
               {o.params.map((item, i) => (
                 <div key={i} style={{ display: "flex", gap: 12, padding: "8px 0", borderBottom: "1px solid var(--border-faint)" }}>
@@ -72,7 +77,9 @@ export function Output({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: 
 
           {/* Section 3 */}
           <div style={{ marginBottom: 36 }}>
-            <div className="field-label" style={{ marginBottom: 14 }}>3 — Spatial approaches</div>
+            <div className="field-label" style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 7 }}>
+              <IconGrid size={14} /> 3 — Spatial approaches
+            </div>
             {o.approaches.map((appr, i) => (
               <div key={i} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 10, padding: 20, marginBottom: 12 }}>
                 <div style={{ fontSize: 16, fontWeight: 540, color: "var(--text)", marginBottom: 4 }}>{appr.name}</div>
@@ -119,7 +126,9 @@ export function Output({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: 
 
           {/* Section 4 */}
           <div style={{ marginBottom: 36 }}>
-            <div className="field-label" style={{ marginBottom: 14 }}>4 — Visual direction brief</div>
+            <div className="field-label" style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 7 }}>
+              <IconPalette size={14} /> 4 — Visual direction brief
+            </div>
             <div style={{ fontSize: 12, color: "var(--text-subtle)", marginBottom: 14 }}>Use this as your reference when building the client's mood board</div>
             <div style={{ marginBottom: 20 }}>
               <div style={{ fontSize: 12, color: "var(--text-tertiary)", fontWeight: 540, marginBottom: 10 }}>Colour palette</div>
@@ -158,7 +167,9 @@ export function Output({ wizard, theme, toggleTheme }: { wizard: Wizard; theme: 
 
           {/* Section 5 */}
           <div style={{ marginBottom: 60 }}>
-            <div className="field-label" style={{ marginBottom: 14 }}>5 — Action sheet</div>
+            <div className="field-label" style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 7 }}>
+              <IconStar size={14} /> 5 — Action sheet
+            </div>
             {o.actions.map((act, i) => (
               <div key={i} style={{ display: "flex", gap: 12, padding: "10px 0", borderBottom: "1px solid var(--border-faint)" }}>
                 <div style={{ fontSize: 12, color: "var(--accent)", fontWeight: 600, width: 20, flexShrink: 0, textAlign: "right" }}>{act.num}</div>

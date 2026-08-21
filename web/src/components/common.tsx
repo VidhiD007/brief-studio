@@ -7,6 +7,28 @@ export function RequiredMark() {
   return <span style={{ color: "var(--danger)", marginLeft: 4 }}>*</span>;
 }
 
+// A section-title paired with a small icon — used throughout the wizard so
+// headings read as a visual anchor rather than another line of plain text.
+export function SectionHeading({
+  icon,
+  children,
+  required,
+}: {
+  icon: ReactNode;
+  children: ReactNode;
+  required?: boolean;
+}) {
+  return (
+    <div className="section-title" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <span style={{ color: "var(--accent)", display: "flex", flexShrink: 0 }}>{icon}</span>
+      <span>
+        {children}
+        {required ? <RequiredMark /> : null}
+      </span>
+    </div>
+  );
+}
+
 export function ThemeToggleButton({ theme, toggleTheme }: { theme: Theme; toggleTheme: () => void }) {
   return (
     <div
@@ -43,11 +65,14 @@ export function ThemeToggleButton({ theme, toggleTheme }: { theme: Theme; toggle
   );
 }
 
-export function FieldLabel({ children, required }: { children: ReactNode; required?: boolean }) {
+export function FieldLabel({ children, required, icon }: { children: ReactNode; required?: boolean; icon?: ReactNode }) {
   return (
-    <div className="field-label">
-      {children}
-      {required ? <RequiredMark /> : null}
+    <div className="field-label" style={icon ? { display: "flex", alignItems: "center", gap: 6 } : undefined}>
+      {icon ? <span style={{ display: "flex", flexShrink: 0 }}>{icon}</span> : null}
+      <span>
+        {children}
+        {required ? <RequiredMark /> : null}
+      </span>
     </div>
   );
 }

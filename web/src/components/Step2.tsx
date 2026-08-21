@@ -5,6 +5,7 @@ import {
   mustHaveChipsFor, needsChipsFor,
 } from "../constants";
 import { ChipGroup, FieldLabel, RadioGroup } from "./common";
+import { IconClock, IconSpeech, IconStar, IconTag } from "./Icons";
 
 export function Step2({ wizard }: { wizard: Wizard }) {
   const { state, patch, toggleChip, addCustomMustHave } = wizard;
@@ -82,7 +83,9 @@ export function Step2({ wizard }: { wizard: Wizard }) {
 
       <div style={{ marginBottom: 22 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-          <div className="field-label" style={{ marginBottom: 0 }}>Budget</div>
+          <div className="field-label" style={{ marginBottom: 0, display: "flex", alignItems: "center", gap: 6 }}>
+            <IconTag size={12} /> Budget
+          </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ fontSize: 20, fontWeight: 340, color: "var(--text)" }}>{budgetDisplay}</span>
             <div style={{ padding: "4px 9px", background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 6, fontSize: 11, color: "var(--text-tertiary)", userSelect: "none" }}>USD</div>
@@ -107,7 +110,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
       <div className="hairline" />
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel required>Pain points</FieldLabel>
+        <FieldLabel required icon={<IconSpeech size={13} />}>Pain points</FieldLabel>
         <div style={{ fontSize: 12, color: "var(--text-subtle)", marginBottom: 7 }}>What is not working? What did the client say bothers them?</div>
         <textarea
           value={state.painPoints}
@@ -119,7 +122,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
       </div>
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel>Must-haves</FieldLabel>
+        <FieldLabel icon={<IconStar size={13} />}>Must-haves</FieldLabel>
         <div style={{ marginBottom: 10 }}>
           <ChipGroup options={mustHaveChipsFor(state.spaceType)} selected={state.mustHaves} onToggle={(v) => toggleChip("mustHaves", v)} />
         </div>
@@ -166,7 +169,7 @@ export function Step2({ wizard }: { wizard: Wizard }) {
       </div>
 
       <div style={{ marginBottom: 22 }}>
-        <FieldLabel required>Timeline</FieldLabel>
+        <FieldLabel required icon={<IconClock size={13} />}>Timeline</FieldLabel>
         <RadioGroup options={TIMELINE_OPTIONS} value={state.timeline} onSelect={(v) => patch({ timeline: v })} direction="column" />
       </div>
     </div>

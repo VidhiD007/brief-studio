@@ -1,5 +1,6 @@
 import type { Wizard } from "../useWizard";
 import { reviewSections } from "../derived";
+import { IconChecklist, IconStar } from "./Icons";
 
 export function Step5({ wizard }: { wizard: Wizard }) {
   const { state, patch, goToStep } = wizard;
@@ -11,7 +12,9 @@ export function Step5({ wizard }: { wizard: Wizard }) {
       <div style={{ fontSize: 14, color: "var(--text-subtle)", marginBottom: 32 }}>Confirm your inputs and generate your design strategy document</div>
       <div className="responsive-row" style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div className="field-label" style={{ marginBottom: 12 }}>Your inputs</div>
+          <div className="field-label" style={{ marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}>
+            <IconChecklist size={13} /> Your inputs
+          </div>
           {sections.map((sect) => {
             const expanded = !!state.expandedSections[sect.key];
             return (
@@ -57,7 +60,9 @@ export function Step5({ wizard }: { wizard: Wizard }) {
         </div>
         <div className="step5-side-panel" style={{ width: 300, flexShrink: 0 }}>
           <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 10, padding: 20 }}>
-            <div className="field-label" style={{ marginBottom: 14 }}>What you will receive</div>
+            <div className="field-label" style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 6 }}>
+              <IconStar size={13} /> What you will receive
+            </div>
             <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.7 }}>
               <div style={{ marginBottom: 10 }}><span style={{ color: "var(--accent)" }}>✓</span> Space analysis — confirmed against your corrections</div>
               <div style={{ marginBottom: 10 }}><span style={{ color: "var(--accent)" }}>✓</span> Design parameters — structured summary of all requirements</div>
